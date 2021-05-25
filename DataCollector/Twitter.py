@@ -15,11 +15,16 @@ class Tweets:
             self.tweets[str(t.id)] = t.text
 
     def removeTweets(self, ids: list):
-        [self.tweets.pop(id) for id in ids]
+        for id in ids:
+            if str(id) in self.tweets:
+                self.tweets.pop(str(id))
 
     def saveJSON(self, file_name):
         if '.json' not in file_name:
             file_name += '.json'
+        to_save = {}
+        for tweet in self.tweets:
+            to_save[tweet] = [self.tweets[tweet]]
         json.dump(self.tweets, open(file_name, 'w+'))
 
     def loadJSON(self, file_name, replace=False):
