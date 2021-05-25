@@ -9,6 +9,9 @@ class Tweets:
         self.api = tweepy.API(auth)
         self.tweets = {}
 
+    def reset(self):
+        self.tweets = {}
+
     def addTweets(self, ids: list):
         tweets = self.api.statuses_lookup(ids)
         for t in tweets:
@@ -23,9 +26,9 @@ class Tweets:
         if '.json' not in file_name:
             file_name += '.json'
         to_save = {}
-        for tweet in self.tweets:
-            to_save[tweet] = [self.tweets[tweet]]
-        json.dump(self.tweets, open(file_name, 'w+'))
+        for i, tweet in enumerate(self.tweets):
+            to_save[i] = {'id': tweet, 'text': self.tweets[tweet]}
+        json.dump(to_save, open(file_name, 'w+'))
 
     def loadJSON(self, file_name, replace=False):
         if '.json' not in file_name:
