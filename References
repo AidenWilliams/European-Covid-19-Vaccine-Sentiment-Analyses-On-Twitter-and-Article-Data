@@ -1,0 +1,15 @@
+https://www.sentic.net/multilingual-sentiment-analysis.pdf - from where I got 2 (survey of papers)
+https://www-sciencedirect-com.ejournals.um.edu.mt/science/article/pii/S088523081300020X?via%3Dihub - machine translation good in 2014
+https://www-sciencedirect-com.ejournals.um.edu.mt/science/article/pii/S0020025519309879?via%3Dihub -
+SA google trends, Machine translation systems why better to translate, YANDEX to translate
+https://translate.yandex.com/developers/offer/prices - Yandex expensive
+https://cloud.google.com/translate - cheaper
+Translation Method	Macro-F1	Applicability
+Google	0.73 ± (0.02)	0.47 ± (0.04)
+Yandex	0.73 ± (0.02)	0.54 ± (0.03)
+Bing	0.72 ± (0.02)	0.53 ± (0.03)
+Baseline	0.70 ± (0.02)	0.51 ± (0.03)
+https://ojs.aaai.org/index.php/ICWSM/article/view/14550 - VADER
+https://asistdl.onlinelibrary.wiley.com/doi/abs/10.1002/asi.24117 - off the shelf programs
+https://link.springer.com/content/pdf/10.1140/epjds/s13688-016-0085-1.pdf - Survey of a number of methods
+https://link-springer-com.ejournals.um.edu.mt/chapter/10.1007%2F978-3-319-42345-6_23 - FISENT model

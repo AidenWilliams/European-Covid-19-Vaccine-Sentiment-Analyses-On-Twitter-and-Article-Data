@@ -1,5 +1,35 @@
 import tweepy
 import json
+from string import punctuation
+import re
+from nltk.corpus import stopwords
+from nltk.tokenize import TweetTokenizer
+import six
+from google.cloud import translate_v2 as translate
+
+"""
+['arabic',
+ 'azerbaijani',
+ 'danish',
+ 'dutch',
+ 'english',
+ 'finnish',
+ 'french',
+ 'german',
+ 'greek',
+ 'hungarian',
+ 'indonesian',
+ 'italian',
+ 'kazakh',
+ 'nepali',
+ 'norwegian',
+ 'portuguese',
+ 'romanian',
+ 'russian',
+ 'spanish',
+ 'swedish',
+ 'turkish']
+"""
 
 
 class Tweets:
@@ -7,7 +37,16 @@ class Tweets:
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         self.api = tweepy.API(auth)
+        self.translate_client = translate.Client.from_service_account_json('service_account.json')
         self.tweets = {}
+        # dictionary of sets, very fast indeed
+        self.stopwords = {
+            "en": set(stopwords.words('english')),
+            "fr": set(stopwords.words('french')),
+            "de": set(stopwords.words('german')),
+            "es": set(stopwords.words('spanish'))
+        }
+        self.punctuation = punctuation + '΄´’…“”–—―»«'
 
     def reset(self):
         self.tweets = {}
@@ -36,47 +75,78 @@ class Tweets:
         if replace:
             self.tweets = json.load(open(file_name))
         else:
-            tweets = json.load(open(file_name))
+            jsontweets = json.load(open(file_name))
+            tweets = {jsontweets[id]['id']: jsontweets[id]['text'] for id in jsontweets}
             self.tweets.update(tweets)
 
-    def __repr__(self):
-        """Allows the representation of Tweets as the tweets dict
+    def _pp(self, tweet, lang):
+        # Remove HTML special entities (e.g. &amp;)
+        tweet_no_special_entities = re.sub(r'&\w*;', '', tweet)
+        # Remove tickers
+        tweet_no_tickers = re.sub(r'\$\w*', '', tweet_no_special_entities)
+        # Remove hyperlinks
+        tweet_no_hyperlinks = re.sub(r'https?://.*/\w*', '', tweet_no_tickers)
+        # Remove hashtags
+        tweet_no_hashtags = re.sub(r'#\w*', '', tweet_no_hyperlinks)
+        # Remove Punctuation and split 's, 't, 've with a space for filter
+        tweet_no_punctuation = re.sub(r'[' + punctuation.replace('@', '') + ']+', ' ', tweet_no_hashtags)
+        # Remove words with 2 or fewer letters
+        tweet_no_small_words = re.sub(r'\b\w{1,2}\b', '', tweet_no_punctuation)
+        # Remove whitespace (including new line characters)
+        tweet_no_whitespace = re.sub(r'\s\s+', ' ', tweet_no_small_words)
+        # Remove single space remaining at the front of the tweet.
+        tweet_no_whitespace = tweet_no_whitespace.lstrip(' ')
+        # Remove characters beyond Basic Multilingual Plane (BMP) of Unicode:
+        tweet_no_emojis = ''.join(c for c in tweet_no_whitespace if
+                                  # Apart from emojis (plane 1), this also removes historic scripts and
+                                  # mathematical alphanumerics (also plane 1),
+                                  # ideographs (plane 2) and more.
+                                  c <= '\uFFFF')
+        # Tokenize: Change to lowercase, reduce length and remove handles
+        tknzr = TweetTokenizer(preserve_case=False, reduce_len=True,
+                               strip_handles=True)  # reduce_len changes, for example, waaaaaayyyy to waaayyy.
+        tw_list = tknzr.tokenize(tweet_no_emojis)
+        # Remove stopwords
+        list_no_stopwords = [i for i in tw_list if i not in self.stopwords[lang]]
+        # Final filtered tweet
+        tweet_filtered = ' '.join(list_no_stopwords)
+        '''
+        _pp(tweet='    RT @Amila #Test\nTom\'s newly listed Co. &amp; Mary\'s unlisted     Group to supply tech for nlTK.\nh.. $TSLA $AAPL https:// t.co/x34afsfQsh', lang='en')
+        '''
 
-        Returns
-        -------
-        _ngram
-        """
-        return self.tweets
+        return tweet_filtered
 
-    def __iter__(self):
-        """Gives functionality to iterate over tweets
-        """
-        for t in self.tweets:
-            yield t
+    def preProcess(self, language):
+        temp_tweets = {id: self._pp(tweet=self.tweets[id], lang=language) for id in self.tweets}
+        self.tweets = temp_tweets
 
-    def __getitem__(self, item):
-        """
-        Returns
-        -------
-        item in tweets at index
-        """
-        return self.tweets[item]
+    def _translate(self, tweet, source_language):
+        """Translates text into the target language.
 
-    def __len__(self):
+        Make sure your project is allowlisted.
+
+        source_language must be an ISO 639-1 language code.
+        See https://g.co/cloud/translate/v2/translate-reference#supported_languages
         """
-        Returns
-        -------
-        length of tweets
-        """
-        return len(self.tweets)
+        if isinstance(tweet, six.binary_type):
+            tweet = tweet.decode("utf-8")
+
+        # Text can also be a sequence of strings, in which case this method
+        # will return a sequence of results for each text.
+        return self.translate_client.translate(tweet, target_language='en', source_language=source_language)["translatedText"]
+
+    def translate(self, language):
+        temp_tweets = {id: self._translate(tweet=self.tweets[id], source_language=language) for id in self.tweets}
+        self.tweets = temp_tweets
+
 
 if __name__ == '__main__':
     from decouple import config
 
     tweets = Tweets(config('TWITTER_API_KEY'),
-                   config('TWITTER_API_SECRET'),
-                   config('TWITTER_ACCESS_TOKEN_KEY'),
-                   config('TWITTER_ACCESS_TOKEN_SECRET'))
+                    config('TWITTER_API_SECRET'),
+                    config('TWITTER_ACCESS_TOKEN_KEY'),
+                    config('TWITTER_ACCESS_TOKEN_SECRET'))
 
     tweets.addTweets(['1344871397026361345', '1344871397286359041', '1344871407654731777'])
 
