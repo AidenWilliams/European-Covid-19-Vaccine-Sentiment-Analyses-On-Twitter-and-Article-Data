@@ -69,15 +69,12 @@ class Tweets:
             to_save[i] = {'id': tweet, 'text': self.tweets[tweet]}
         json.dump(to_save, open(file_name, 'w+'))
 
-    def loadJSON(self, file_name, replace=False):
+    def loadJSON(self, file_name):
         if '.json' not in file_name:
             file_name += '.json'
-        if replace:
-            self.tweets = json.load(open(file_name))
-        else:
-            jsontweets = json.load(open(file_name))
-            tweets = {jsontweets[id]['id']: jsontweets[id]['text'] for id in jsontweets}
-            self.tweets.update(tweets)
+        jsontweets = json.load(open(file_name))
+        tweets = {jsontweets[id]['id']: jsontweets[id]['text'] for id in jsontweets}
+        self.tweets.update(tweets)
 
     def _pp(self, tweet, lang):
         # Remove HTML special entities (e.g. &amp;)
