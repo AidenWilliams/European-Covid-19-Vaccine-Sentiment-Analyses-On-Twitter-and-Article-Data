@@ -89,23 +89,15 @@ class Tweets:
         tweet_no_tickers = re.sub(r'\$\w*', '', tweet_no_special_entities)
         # Remove hyperlinks
         tweet_no_hyperlinks = re.sub(r'https?://.*/\w*', '', tweet_no_tickers)
-        # Remove hashtags
-        tweet_no_hashtags = re.sub(r'#\w*', '', tweet_no_hyperlinks)
         # Remove Punctuation and split 's, 't, 've with a space for filter
-        tweet_no_punctuation = re.sub(r'[' + punctuation.replace('@', '') + ']+', ' ', tweet_no_hashtags)
+        tweet_no_punctuation = re.sub(r'[' + punctuation.replace('@', '') + ']+', ' ', tweet_no_hyperlinks)
         # Remove words with 2 or fewer letters
         tweet_no_small_words = re.sub(r'\b\w{1,2}\b', '', tweet_no_punctuation)
         # Remove whitespace (including new line characters)
         tweet_no_whitespace = re.sub(r'\s\s+', ' ', tweet_no_small_words)
         # Remove single space remaining at the front of the tweet.
         tweet_no_whitespace = tweet_no_whitespace.lstrip(' ')
-        # Remove characters beyond Basic Multilingual Plane (BMP) of Unicode:
-        tweet_no_emojis = ''.join(c for c in tweet_no_whitespace if
-                                  # Apart from emojis (plane 1), this also removes historic scripts and
-                                  # mathematical alphanumerics (also plane 1),
-                                  # ideographs (plane 2) and more.
-                                  c <= '\uFFFF')
-        tw_list = self.tknzr.tokenize(tweet_no_emojis)
+        tw_list = self.tknzr.tokenize(tweet_no_whitespace)
         # Remove stopwords
         list_no_stopwords = [i for i in tw_list if i not in self.stopwords[lang]]
         # Final filtered tweet
