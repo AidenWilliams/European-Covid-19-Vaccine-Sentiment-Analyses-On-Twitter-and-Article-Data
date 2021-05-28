@@ -58,15 +58,15 @@ class Tweets:
 
     def removeTweets(self, ids: list):
         for id in ids:
-            if str(id) in self.tweets:
+            if str(id) in self:
                 self.tweets.pop(str(id))
 
     def saveJSON(self, file_name):
         if '.json' not in file_name:
             file_name += '.json'
         to_save = {}
-        for i, tweet in enumerate(self.tweets):
-            to_save[i] = {'id': tweet, 'text': self.tweets[tweet]}
+        for i, tweet in enumerate(self):
+            to_save[i] = {'id': tweet, 'text': self[tweet]}
         json.dump(to_save, open(file_name, 'w+'))
 
     def loadJSON(self, file_name):
@@ -114,8 +114,9 @@ class Tweets:
         return tweet_filtered
 
     def preProcess(self, language):
-        temp_tweets = {id: self._pp(tweet=self.tweets[id], lang=language) for id in self.tweets}
+        temp_tweets = {id: self._pp(tweet=self[id], lang=language) for id in self}
         self.tweets = temp_tweets
+        return self.tweets
 
     def _translate(self, tweet, source_language):
         """Translates text into the target language.
@@ -133,8 +134,40 @@ class Tweets:
         return self.translate_client.translate(tweet, target_language='en', source_language=source_language)["translatedText"]
 
     def translate(self, language):
-        temp_tweets = {id: self._translate(tweet=self.tweets[id], source_language=language) for id in self.tweets}
+        temp_tweets = {id: self._translate(tweet=self[id], source_language=language) for id in self}
         self.tweets = temp_tweets
+        return self.tweets
+
+    def __repr__(self):
+        """Allows the representation of Tweets as the tweets dict
+
+        Returns
+        -------
+        tweets
+        """
+        return self.tweets
+
+    def __iter__(self):
+        """Gives functionality to iterate over tweets
+        """
+        for tweet in self.tweets:
+            yield tweet
+
+    def __getitem__(self, item):
+        """
+        Returns
+        -------
+        item in item at index
+        """
+        return self.tweets[item]
+
+    def values(self):
+        """
+        Returns
+        -------
+        item' values
+        """
+        return self.tweets.values()
 
 
 if __name__ == '__main__':
@@ -144,18 +177,31 @@ if __name__ == '__main__':
                     config('TWITTER_API_SECRET'),
                     config('TWITTER_ACCESS_TOKEN_KEY'),
                     config('TWITTER_ACCESS_TOKEN_SECRET'))
-
+    # tweet ids taken from 2021-01-01_clean-dataset.tsv
     tweets.addTweets(['1344871397026361345', '1344871397286359041', '1344871407654731777'])
-
+    print('Added')
+    for t in tweets:
+        print(t, ' ', tweets[t])
     tweets.removeTweets(['1344871397026361345', '1344871397286359041'])
+    print('After removal')
+    for t in tweets:
+        print(t, ' ', tweets[t])
 
     tweets.saveJSON('test')
 
+    print('After Saving')
+    for t in tweets:
+        print(t, ' ', tweets[t])
     tweets.addTweets(['1344871397026361345', '1344871397286359041'])
+    print('After Adding')
+    for t in tweets:
+        print(t, ' ', tweets[t])
 
     tweets.loadJSON('test.json')
+    print('After Loading')
+    for t in tweets:
+        print(t, ' ', tweets[t])
 
-    # print(d.tweets['1344871407654731777'])
-
+    tweets.preProcess('en')
     for t in tweets:
         print(t, ' ', tweets[t])
