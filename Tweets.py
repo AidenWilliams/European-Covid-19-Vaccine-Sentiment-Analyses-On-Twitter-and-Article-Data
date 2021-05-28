@@ -44,9 +44,15 @@ class Tweets:
             "en": set(stopwords.words('english')),
             "fr": set(stopwords.words('french')),
             "de": set(stopwords.words('german')),
-            "es": set(stopwords.words('spanish'))
+            "es": set(stopwords.words('spanish')),
+            "nl": set(stopwords.words('dutch')),
+            "it": set(stopwords.words('italian'))
         }
         self.punctuation = punctuation + '΄´’…“”–—―»«'
+
+        # Tokenize: Change to lowercase, reduce length and remove handles
+        self.tknzr = TweetTokenizer(preserve_case=False, reduce_len=True,
+                                    strip_handles=True)  # reduce_len changes, for example, waaaaaayyyy to waaayyy.
 
     def reset(self):
         self.tweets = {}
@@ -99,10 +105,7 @@ class Tweets:
                                   # mathematical alphanumerics (also plane 1),
                                   # ideographs (plane 2) and more.
                                   c <= '\uFFFF')
-        # Tokenize: Change to lowercase, reduce length and remove handles
-        tknzr = TweetTokenizer(preserve_case=False, reduce_len=True,
-                               strip_handles=True)  # reduce_len changes, for example, waaaaaayyyy to waaayyy.
-        tw_list = tknzr.tokenize(tweet_no_emojis)
+        tw_list = self.tknzr.tokenize(tweet_no_emojis)
         # Remove stopwords
         list_no_stopwords = [i for i in tw_list if i not in self.stopwords[lang]]
         # Final filtered tweet
@@ -131,7 +134,8 @@ class Tweets:
 
         # Text can also be a sequence of strings, in which case this method
         # will return a sequence of results for each text.
-        return self.translate_client.translate(tweet, target_language='en', source_language=source_language)["translatedText"]
+        return self.translate_client.translate(tweet, target_language='en', source_language=source_language)[
+            "translatedText"]
 
     def translate(self, language):
         temp_tweets = {id: self._translate(tweet=self[id], source_language=language) for id in self}
