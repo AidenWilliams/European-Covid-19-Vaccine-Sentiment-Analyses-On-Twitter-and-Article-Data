@@ -1,5 +1,7 @@
 .idea
 /.idea
-/Data
+/Data/Analyzed
+/Data/2021-04-01.xlsx
+/Data/pancealab
+/Data/FilteredTwitterIDs
 /.env
-/multiplex-plot-master
