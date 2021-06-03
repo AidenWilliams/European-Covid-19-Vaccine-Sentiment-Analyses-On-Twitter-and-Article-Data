@@ -1,12 +1,8 @@
 .idea
 /.idea
-/Data/Analyzed
 /Data/2021-04-01.xlsx
-/Data/pancealab
-/Data/FilteredTwitterIDs
 /.env
 /Data/MeanSentiment.json
 /FirstGoWorking.rar
 /service_account.json
-/ProcessOrNot
-/Data/New titles.xlsx
+/Data/News Titles.xlsx
