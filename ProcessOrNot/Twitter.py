@@ -13,6 +13,8 @@ class Tweets:
 
     Various tools for processing are provided in the class to remove unwanted text features and translation.
 
+    Version 1
+
     Attributes
     ----------
     api :  Tweepy API

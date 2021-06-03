@@ -7,37 +7,45 @@ from nltk.tokenize import TweetTokenizer
 import six
 from google.cloud import translate_v2 as translate
 
-"""
-['arabic',
- 'azerbaijani',
- 'danish',
- 'dutch',
- 'english',
- 'finnish',
- 'french',
- 'german',
- 'greek',
- 'hungarian',
- 'indonesian',
- 'italian',
- 'kazakh',
- 'nepali',
- 'norwegian',
- 'portuguese',
- 'romanian',
- 'russian',
- 'spanish',
- 'swedish',
- 'turkish']
-"""
-
 
 class Tweets:
-    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+    """The Tweets class represents a collection of tweets comprised of the id and the tweet text content.
+
+    Various tools for processing are provided in the class to remove unwanted text features and translation.
+
+    Version 2
+
+    Attributes
+    ----------
+    api :  Tweepy API
+        This is the Tweepy API object used by the class to retrieve tweets by their id.
+
+    translate_client : Google Cloud API
+        This is the Google Cloud API object used by the class to translate tweet text to english.
+
+    tweets :  {id: text}
+        A dict containing the tweets
+
+    stopwords : {language: set(nltk.stopwords.words(language))}
+        A dict of sets comprising of the nltk stopwords for each language that will be analyzed in this project
+
+    punctuation : str
+        A string of punctuations
+
+    """
+    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret, path_to_service_account):
+        """Initialises the Tweets object using for the Twitter and Google Cloud API, aswell for the languages chosen.
+
+        :param consumer_key: Tweepy consumer key
+        :param consumer_secret: Tweepy consumer secret
+        :param access_token: Tweepy access token
+        :param access_token_secret: Tweepy access token secret
+        :param path_to_service_account: Path to Google API service_account.json
+        """
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         self.api = tweepy.API(auth)
-        self.translate_client = translate.Client.from_service_account_json('service_account.json')
+        self.translate_client = translate.Client.from_service_account_json(path_to_service_account)
         self.tweets = {}
         # dictionary of sets, very fast indeed
         self.stopwords = {
@@ -55,19 +63,33 @@ class Tweets:
                                     strip_handles=True)  # reduce_len changes, for example, waaaaaayyyy to waaayyy.
 
     def reset(self):
+        """ Resets the tweets object
+        """
         self.tweets = {}
 
     def addTweets(self, ids: list):
+        """ adds tweets from the ids list to tweets
+
+        :param ids: list of twitter tweet ids
+        """
         tweets = self.api.statuses_lookup(ids)
         for t in tweets:
             self.tweets[str(t.id)] = t.text
 
     def removeTweets(self, ids: list):
+        """ removes tweets with an id in ids from tweets
+
+        :param ids: list of twitter tweet ids
+        """
         for id in ids:
             if str(id) in self:
                 self.tweets.pop(str(id))
 
     def saveJSON(self, file_name):
+        """Saves the tweets dictionary.
+
+        :param file_name: file name/ directory for saving
+        """
         if '.json' not in file_name:
             file_name += '.json'
         to_save = {}
@@ -76,6 +98,10 @@ class Tweets:
         json.dump(to_save, open(file_name, 'w+'))
 
     def loadJSON(self, file_name):
+        """Loads the tweets dictionary.
+
+        :param file_name: file name/ directory for loading
+        """
         if '.json' not in file_name:
             file_name += '.json'
         jsontweets = json.load(open(file_name))
@@ -83,6 +109,14 @@ class Tweets:
         self.tweets.update(tweets)
 
     def _pp(self, tweet, lang):
+        """pre-processes tweet
+
+        hashtags, emojis, case, length and handles are kept in this version
+
+        :param tweet: tweet
+        :param lang: language of tweet
+        :return: pre processed tweet
+        """
         # Remove HTML special entities (e.g. &amp;)
         tweet_no_special_entities = re.sub(r'&\w*;', '', tweet)
         # Remove tickers
@@ -109,6 +143,10 @@ class Tweets:
         return tweet_filtered
 
     def preProcess(self, language):
+        """ preProcess all the tweets in tweets
+
+        :param language: language of the tweets
+        """
         temp_tweets = {id: self._pp(tweet=self[id], lang=language) for id in self}
         self.tweets = temp_tweets
         return self.tweets
@@ -116,10 +154,9 @@ class Tweets:
     def _translate(self, tweet, source_language):
         """Translates text into the target language.
 
-        Make sure your project is allowlisted.
-
-        source_language must be an ISO 639-1 language code.
-        See https://g.co/cloud/translate/v2/translate-reference#supported_languages
+        :param tweet: tweet
+        :param source_language: language of tweet
+        :return: translated tweet from source_language to english
         """
         if isinstance(tweet, six.binary_type):
             tweet = tweet.decode("utf-8")
@@ -130,6 +167,10 @@ class Tweets:
             "translatedText"]
 
     def translate(self, language):
+        """ translates all the tweets in tweets to english
+
+        :param language: language of the tweets
+        """
         temp_tweets = {id: self._translate(tweet=self[id], source_language=language) for id in self}
         self.tweets = temp_tweets
         return self.tweets
@@ -167,29 +208,41 @@ class Tweets:
 
 
 if __name__ == '__main__':
+    # Updated demo
     from decouple import config
 
     tweets = Tweets(config('TWITTER_API_KEY'),
                     config('TWITTER_API_SECRET'),
                     config('TWITTER_ACCESS_TOKEN_KEY'),
-                    config('TWITTER_ACCESS_TOKEN_SECRET'))
+                    config('TWITTER_ACCESS_TOKEN_SECRET'),
+                    'service_account.json')
+
     # tweet ids taken from 2021-01-01_clean-dataset.tsv
     tweets.addTweets(['1344871397026361345', '1344871397286359041', '1344871407654731777'])
+
     print('Added')
+
     for t in tweets:
         print(t, ' ', tweets[t])
+
     tweets.removeTweets(['1344871397026361345', '1344871397286359041'])
+
     print('After removal')
+
     for t in tweets:
         print(t, ' ', tweets[t])
 
     tweets.saveJSON('test')
 
     print('After Saving')
+
     for t in tweets:
         print(t, ' ', tweets[t])
+
     tweets.addTweets(['1344871397026361345', '1344871397286359041'])
+
     print('After Adding')
+
     for t in tweets:
         print(t, ' ', tweets[t])
 
