@@ -19,7 +19,7 @@
 %% and oneside for the final thing you submit to the library.  Note that margins will
 %% change accordingly
 
-\documentclass[twoside]{um}  % custom University of Malta project/dissertation/thesis 
+\documentclass[oneside]{um}  % custom University of Malta project/dissertation/thesis
 
 
 %% **************** (Your) Packages (Start) ******************
@@ -38,22 +38,22 @@
 
 %% **************** (Your) Data (Start) ******************
 
-\title{Machine Learning\\Approaches to the\\Blockchain}  % use \\ here otherwise you get a justified title
+\title{European Covid-19 Vaccine\\Sentiment Analyses\\On Twitter and Article Data}  % use \\ here otherwise you get a justified title
                                      % note capitalization of the title (only common 
                                      % words in lower case)
-\tagline{some hyped-up tagline}      % tag line
-\author{Jean-Paul Ebejer}            % your full name
-\authorID{123456M}                   % your University Identifier
-\supervisor{Dr Zhivago}              % your supervisor(s) name - no . in Dr
-\cosupervisor{Dr Who}                % your cosupervisor(s) name - no . in Dr *OPTIONAL* 
+%\tagline{some hyped-up tagline}      % tag line
+\author{Aiden Williams}            % your full name
+\authorID{372001 (L)}                   % your University Identifier
+\supervisor{Dr Claudia Borg}              % your supervisor(s) name - no . in Dr
+%\cosupervisor{Dr Who}                % your cosupervisor(s) name - no . in Dr *OPTIONAL*
                                      % simply comment out the above line if absent
-\department{Department of Alchemy}   % your department (e.g. Artifical Intelligence)
-\faculty{Faculty of Something}       % your faculty (e.g. ICT)
-\degreeName{M.Sc.\ in Your Degree}       % the degree you are reading
+\department{Department of Artificial Intelligence}   % your department (e.g. Artifical Intelligence)
+\faculty{Faculty of ICT}       % your faculty (e.g. ICT)
+\degreeName{B.Sc.\ in Artificial Intelligence}       % the degree you are reading
                                      % note the \ after the dot, so not to consider it a fullstop
-\doctype{dissertation}               % the type of document (fyp, dissertation, thesis)
+\doctype{Individual APT}               % the type of document (fyp, dissertation, thesis)
 \degreeDate{\monthyeardate\today}    % when did you submit (officially after your corrections)
-%%\subjectcode{ICS5200}                % the study unit-code (currently not used)
+\subjectcode{ARI2201}                % the study unit-code (currently not used)
 
 %% ***************** (Your) Data (End) *******************
 
@@ -81,10 +81,10 @@
 \begin{document}
 \frontmatter 
     \maketitle
-    \input{frontmatter/copyright}       
-    \input{frontmatter/originality}    
-    \input{frontmatter/dedication}        % include a dedication.tex file
-    \input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
+%    \input{frontmatter/copyright}
+%    \input{frontmatter/originality}
+%    \input{frontmatter/dedication}        % include a dedication.tex file
+%    \input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
     \input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
     \tableofcontents*\if@openright\cleardoublepage\else\clearpage\fi
     \listoffigures*\if@openright\cleardoublepage\else\clearpage\fi
@@ -101,18 +101,19 @@
     \input{chap4/results_and_discussion_main}
     \input{chap5/evaluation_main}
     \input{chap6/conclusions_main}
-    \appendix
-        \input{appA/appendix_a_main}     % these are just test names as I didn't know what you'd want
-        \input{appB/appendix_b_main}    
-        \input{appC/appendix_c_main} 
+%    \appendix
+%        \input{appA/appendix_a_main}     % these are just test names as I didn't know what you'd want
+%        \input{appB/appendix_b_main}
+%        \input{appC/appendix_c_main}
 
-{\backmatter
+
+\backmatter
     % Bibliography
     \if@openright\cleardoublepage\else\clearpage\fi
     \bibliographystyle{um-plainnat} %% specific plainnat does not show url for articles
     {\scriptsize\bibliography{chap1/introduction_biblio,chap2/background_and_lit_overview_biblio}}
 	\printindex
-}
+
 
 \end{document}
 
