@@ -1,12 +1,12 @@
 \chapter{Introduction}
 
-\textbf{Note that you may have multiple \texttt{{\textbackslash}include} statements here, e.g.\ one for each subsection.}\cofeBm{0.7}{1}{0}{3cm}{-1cm}
+%\textbf{Note that you may have multiple \texttt{{\textbackslash}include} statements here, e.g.\ one for each subsection.}\cofeBm{0.7}{1}{0}{3cm}{-1cm}
 
 \section{Motivation} % why is this a non trivial problem
 
 Modern social media has entrenched itself as the most accessible and heard voice for the modern digitized populace.
 Public and private opinions about a wide variety of subjects are expressed and spread continuously on platforms such as Twitter, Facebook, Youtube and many others.
-Twitter offers a fast and effective \acs{API} that allows researchers to collect and analyze Twitter's users' opinions on a wide range of topics, ranging from the food they ate yesterday to their personal view on the Covid-19 Vaccine.
+Twitter offers a fast and effective \ac{API} that allows researchers to collect and analyze Twitter's users' opinions on a wide range of topics, ranging from the food they ate yesterday to their personal view on the Covid-19 Vaccine.
 However less than 1\% of Twitter data is geo-tagged, which means that classifying the origin country of any data gathered is tedious.
 For this purpose newspaper articles are better suited, especially since western European countries host a number of media houses with different views.
 Analyzing this amalgamation of data and producing a knowledgeable report would be useful for any reader wanting to understand the public opinion of a number of European citizens on the Covid-19 vaccine.
@@ -46,16 +46,16 @@ Analyzing this amalgamation of data and producing a knowledgeable report would b
 \section{Aims and Objectives}
 
 Positive public opinion on the Covid-19 vaccine is essential for an effective vaccine rollout and public or private strategies that are affected by the pandemic.
-The aim of this \acs{IAPT} is to collect publicly available opinions on the Covid-19 pandemic, analyze and extract valuable knowledge to present as an explanation to the sentiment change over time.
+The aim of this \ac{IAPT} is to collect publicly available opinions on the Covid-19 pandemic, analyze and extract valuable knowledge to present as an explanation to the sentiment change over time.
 The effect of Twitter data and publicly available newspaper article headings was investigated for trends and insights.
 
-A number of objectives were defined in the thesis:
+\noindent A number of objectives were defined in the thesis:
 
 \begin{enumerate}
   \item Collect a sizeable and relevant publicly available dataset from a social media platform that covers a number of European countries.
   \item Collect a sizeable and relevant publicly available dataset from a number of European newspapers that covers a number of European countries.
-  \item Implement a \acs{SA} model to analyze the collected data.
-  \item Analyze and extract knowledge from the \acs{SA} sores by visualizing the results.
+  \item Implement a \ac{SA} model to analyze the collected data.
+  \item Analyze and extract knowledge from the \ac{SA} scores by visualizing the results.
 \end{enumerate}
 
 %\blindtext
@@ -69,27 +69,33 @@ A number of objectives were defined in the thesis:
 %
 %A test figure is shown in Figure~\ref{fig:test1}.
 
-\section{Proposed Solution} 
+\section{Summary of Solution Developed}
+\textbf{source some of the stuff here}\cofeBm{0.7}{1}{0}{3cm}{-1cm}
+Using the Twitter \ac{API} and by manually using the Google search engine to collect a number of articles related to 6 European countries: the United Kingdom, Spain, France, Germany, Italy and the Netherlands.
+A number of Python notebooks were developed to collect, filter, process, analyze and visualize this data and the products of its analyses.
+The Google Cloud Translate \ac{API} was used to translate non-English tweet texts to English texts.
+A \ac{VADER} model was used as provided by the \ac{NLTK} library.
+Finally the multiplex visualization library was extensively used to visualize the data in its processed and analyzed form.
 
-\blindtext
+%\blindtext
+%
+%\begin{figure}[!ht]
+%    \centering
+%    \subbottom[Goku]{\includegraphics[width=0.3\textwidth]{test_image_goku}}\qquad
+%    \subbottom[More Goku]{\includegraphics[width=0.3\textwidth]{test_image_goku}}%
+%    \caption[Short Caption]{The same super saiyan. Two times.}
+%    \label{fig:test2}
+%\end{figure}
+%
+%Two figures shown side by side are shown in Figure~\ref{fig:test2}.
 
-\begin{figure}[!ht]
-    \centering
-    \subbottom[Goku]{\includegraphics[width=0.3\textwidth]{test_image_goku}}\qquad
-    \subbottom[More Goku]{\includegraphics[width=0.3\textwidth]{test_image_goku}}%
-    \caption[Short Caption]{The same super saiyan. Two times.}        
-    \label{fig:test2}
-\end{figure}
+%\subsection{Showing the Use of Acronyms}
 
-Two figures shown side by side are shown in Figure~\ref{fig:test2}.
+%In the early nineties, \acs{GSM} was deployed in many European countries. \ac{GSM} offered for the first time international roaming for mobile subscribers. The \acs{GSM}’s use of \ac{TDMA} as its communication standard was debated at length. And every now and then there are big discussion whether \ac{CDMA} should have been chosen over \ac{TDMA}.
+%
+%If you want to know more about \acf{GSM}, \acf{TDMA}, \acf{CDMA} and other acronyms, just read a book about mobile communication. Just to mention it: There is another \ac{UA}, for testing.
+%
 
-\subsection{Showing the Use of Acronyms}
+%\section{Document Structure}
 
-In the early nineties, \acs{GSM} was deployed in many European countries. \ac{GSM} offered for the first time international roaming for mobile subscribers. The \acs{GSM}’s use of \ac{TDMA} as its communication standard was debated at length. And every now and then there are big discussion whether \ac{CDMA} should have been chosen over \ac{TDMA}.
-
-If you want to know more about \acf{GSM}, \acf{TDMA}, \acf{CDMA} and other acronyms, just read a book about mobile communication. Just to mention it: There is another \ac{UA}, for testing.
-
-
-\section{Document Structure}
-
-\blindtext
+%\blindtext
