@@ -1,15 +1,17 @@
 \chapter{Introduction}
 
-%\textbf{Note that you may have multiple \texttt{{\textbackslash}include} statements here, e.g.\ one for each subsection.}\cofeBm{0.7}{1}{0}{3cm}{-1cm}
 
 \section{Motivation} % why is this a non trivial problem
 
 Modern social media has entrenched itself as the most accessible and heard voice for the modern digitized populace.
-Public and private opinions about a wide variety of subjects are expressed and spread continuously on platforms such as Twitter, Facebook, Youtube and many others.
-Twitter offers a fast and effective \ac{API} that allows researchers to collect and analyze Twitter's users' opinions on a wide range of topics, ranging from the food they ate yesterday to their personal view on the Covid-19 Vaccine.
+Platforms such as Twitter, Facebook and Youtube allow their users to generate and share opinionated content across the Web.
+This data has proven to be of tremendous value for a whole range of applications, in Economics, Social Science, Political Science and Marketing, to mention just a few.
+Despite such advantages, the scale of the content in this available data makes it difficult to access and use.
+Progress made in the \ac{NLP} field has made data collection, analyses and evaluation on big data language projects possible.
+Platforms like Twitter offer a fast and effective \ac{API} that allows researchers to collect and analyze users' content, including opinions on their personal view on the Covid-19 Vaccine.
 However less than 1\% of Twitter data is geo-tagged, which means that classifying the origin country of any data gathered is tedious.
-For this purpose newspaper articles are better suited, especially since western European countries host a number of media houses with different views.
-Analyzing this amalgamation of data and producing a knowledgeable report would be useful for any reader wanting to understand the public opinion of a number of European citizens on the Covid-19 vaccine.
+Since most online content is generated in English, the use of other languages cannot be ignored as they can be used as indicators for an origin country or region.
+For this purpose of geo-localization, newspaper articles are better suited, as it is easier to identify for which country an article is written for.
 
 % Maybe not for motivation
 %To focus the analyses on European countries and citizens tweets where collected in 6 languages: English, Spanish, French, German, Italian and Dutch.
@@ -17,31 +19,6 @@ Analyzing this amalgamation of data and producing a knowledgeable report would b
 %To diversify the data collected from Twitter 900 articles where also collected that where written about the Covid-19 pandemic.
 %Articles where collected for 6 countries: United Kingdom, Spain, France, Germany, Italy, Netherlands, and over the same date range as the Twitter dataset.
 
-
-%In the early nineties, \acs{GSM} was deployed in many European countries.
-
-%\blindtext
-%
-%\begin{table*}\centering
-%\ra{1.3}
-%\begin{tabular}{@{}rrrrcrrr@{}}\toprule
-%& \multicolumn{3}{c}{$w = 8$} & \phantom{abc}& \multicolumn{3}{c}{$w = 16$} \\
-%\cmidrule{2-4} \cmidrule{6-8}
-%& $t=0$ & $t=1$ & $t=2$ && $t=0$ & $t=1$ & $t=2$\\ \midrule
-%$dir=1$\\
-%$c$ & 0.0790 & 0.1692 & 0.2945 && 0.3670 & 0.7187 & 3.1815\\
-%$c$ & -0.8651& 50.0476& 5.9384&& -9.0714& 297.0923& 46.2143\\
-%$c$ & 124.2756& -50.9612& -14.2721&& 128.2265& -630.5455& -381.0930\\
-%$dir=0$\\
-%$c$ & 0.0357& 1.2473& 0.2119&& 0.3593& -0.2755& 2.1764\\
-%$c$ & -17.9048& -37.1111& 8.8591&& -30.7381& -9.5952& -3.0000\\
-%$c$ & 105.5518& 232.1160& -94.7351&& 100.2497& 141.2778& -259.7326\\
-%\bottomrule
-%\end{tabular}
-%\caption{A Beautiful and Complex Table}\label{tab:sometable}
-%\end{table*}
-%
-%A beautiful table is shown in Table~\ref{tab:sometable}, data from \citet{Ebejer2012} (when citing as part of text, otherwise \citep{Ebejer2012}).
 
 \section{Aims and Objectives}
 
@@ -54,52 +31,23 @@ The effect of Twitter data and publicly available newspaper article headings was
 \begin{enumerate}
   \item Collect a sizeable and relevant publicly available dataset from a social media platform that covers a number of European countries.
   \item Collect a sizeable and relevant publicly available dataset from a number of European newspapers that covers a number of European countries.
+  \item Preprocess and translate this data so that it can be used as an input for a \ac{SA} model.
   \item Implement a \ac{SA} model to analyze the collected data.
   \item Analyze and extract knowledge from the \ac{SA} scores by visualizing the results.
 \end{enumerate}
 
-%\blindtext
-%
-%\begin{figure}[ht!] % supposedly places it here ...
-%  \centering
-%  \includegraphics[width=0.6\linewidth]{test_image_goku}
-%  \caption[This is the short caption for List of Figures]{A test figure.  This caption is huge, but in the list of figures only the smaller version in the square brackets will appear.\index{Goku il-king}}
-%  \label{fig:test1}
-%\end{figure}
-%
-%A test figure is shown in Figure~\ref{fig:test1}.
-
 \section{Summary of Solution Developed}
-%\textbf{source some of the stuff here}\cofeBm{0.7}{1}{0}{3cm}{-1cm}
-%data from \citet{Ebejer2012} (when citing as part of text, otherwise \citep{Ebejer2012}).
+
 Using the Twitter \ac{API}~\citep{roesslein2020tweepy} and by manually using the Google search engine to collect a number of articles related to 6 European countries: the United Kingdom, Spain, France, Germany, Italy and the Netherlands.
 A number of Python notebooks were developed to collect, filter, process, analyze and visualize this data and the products of its analyses.
 The Google Cloud Translate \ac{API} was used to translate non-English tweet texts to English texts.
 A \ac{VADER} model was used as provided by the \ac{NLTK} library~\citep{bird2009natural}.
 Finally the multiplex visualization library~\citep{Mamo2021} was extensively used to visualize the data in its processed and analyzed form.
 
-%\blindtext
-%
-%\begin{figure}[!ht]
-%    \centering
-%    \subbottom[Goku]{\includegraphics[width=0.3\textwidth]{test_image_goku}}\qquad
-%    \subbottom[More Goku]{\includegraphics[width=0.3\textwidth]{test_image_goku}}%
-%    \caption[Short Caption]{The same super saiyan. Two times.}
-%    \label{fig:test2}
-%\end{figure}
-%
-%Two figures shown side by side are shown in Figure~\ref{fig:test2}.
-
-%\subsection{Showing the Use of Acronyms}
-
-%In the early nineties, \acs{GSM} was deployed in many European countries. \ac{GSM} offered for the first time international roaming for mobile subscribers. The \acs{GSM}’s use of \ac{TDMA} as its communication standard was debated at length. And every now and then there are big discussion whether \ac{CDMA} should have been chosen over \ac{TDMA}.
-%
-%If you want to know more about \acf{GSM}, \acf{TDMA}, \acf{CDMA} and other acronyms, just read a book about mobile communication. Just to mention it: There is another \ac{UA}, for testing.
-%
 
 \section{Document Structure}
-%\hyperref[sec:hello]{Word of text}
+
 Chapter 2 contains a background and review of the relevant literature.
 The methods used in the study are then described in Chapter 3, after which the results are presented and discussed in Chapter 4.
 Finally, Chapter 5 outlines the main conclusions and identifies both limitations to the study and recommendations for further research.
-%\blindtext
+
