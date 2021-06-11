@@ -5,7 +5,7 @@
 
 Modern social media has entrenched itself as the most accessible and heard voice for the modern digitized populace.
 Platforms such as Twitter, Facebook and Youtube allow their users to generate and share opinionated content across the Web.
-This data has proven to be of tremendous value for a whole range of applications, in Economics, Social Science, Political Science and Marketing, to mention just a few.
+\citet{Balahur2014} states that this data has proven to be of tremendous value for a whole range of applications, in Economics, Social Science, Political Science and Marketing.
 Despite such advantages, the scale of the content in this available data makes it difficult to access and use.
 Platforms like Twitter offer a fast and effective \ac{API} that allows researchers to collect and analyze users' content, including opinions on their personal view on the Covid-19 Vaccine.
 However less than 1\% of Twitter data is geo-tagged, which means that classifying the origin country of any data gathered is tedious.
@@ -14,12 +14,13 @@ For this purpose of geo-localization, newspaper articles are better suited, as i
 Progress made in the \ac{NLP} field has made data collection, analyses and evaluation on big data language projects possible.
 \ac{SA} has become a popular tool used for automated analyses for large scale and varied language content.
 
-\begin{figure}[ht!]
-  \centering
-  \includegraphics[width=0.6\linewidth]{google.jpg}
-  \caption[Google Trends for \ac{SA} from 2004--2021]{Google Trends for \ac{SA} from 2004--2021.\index{Google Trend}}
-  \label{fig:googletrend}
-\end{figure}
+
+%\begin{figure}[HT!]
+%  \centering
+%  \includegraphics[width=0.6\linewidth]{google.jpg}
+%  \caption[Google Trends for \ac{SA} from 2004--2021]{Google Trends for \ac{SA} from 2004--2021.\index{Google Trend}}
+%  \label{fig:googletrend}
+%\end{figure}
 
 % Maybe not for motivation
 %To focus the analyses on European countries and citizens tweets where collected in 6 languages: English, Spanish, French, German, Italian and Dutch.
@@ -46,7 +47,7 @@ The effect of Twitter data and publicly available newspaper article headings was
 
 \section{Summary of Solution Developed}
 
-Using the Twitter \ac{API}~\citep{roesslein2020tweepy} and by manually using the Google search engine to collect a number of articles related to 6 European countries: the United Kingdom, Spain, France, Germany, Italy and the Netherlands.
+Using the Twitter \ac{API}~\citep{roesslein2020tweepy} and by manually using the Google search engine to collect a number of articles related to six European countries: the United Kingdom, Spain, France, Germany, Italy and the Netherlands.
 A number of Python notebooks were developed to collect, filter, process, analyze and visualize this data and the products of its analyses.
 The Google Cloud Translate \ac{API} was used to translate non-English tweet texts to English texts.
 A \ac{VADER}~\citep{Hutto_Gilbert_2014} model was used as provided by the \ac{NLTK} library~\citep{bird2009natural}.
