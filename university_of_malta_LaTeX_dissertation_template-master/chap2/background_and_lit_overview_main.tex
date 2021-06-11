@@ -26,18 +26,28 @@ Two general sets of sources, social media platforms and online newspapers are id
 \index{Data Collection!Social Media Platform Data Collection}
 
 Social media platform data collection can be done via several methods.
-Most platforms offer official \ac{REST} \ac{API}, while for others traditional web-scraping techniques are used to collect the data.
+Most platforms offer official \ac{REST} \ac{API}, while for others a traditional web-scraping techniques are used to collect the data.
 In 2016 Twitter users posted an average of 500 million tweets, daily~\citep{Crannell2016}.
 In the same year, the number of active Twitter users exceeded 22\% of the internet users in the world~\citep{Kayser2016}.
 This amounted to 342 million daily active users at the time.
 More recently this figure has changed to 330 million daily users ~\citep{tankovska_2021}.
-Another popular ~CONTINUE~
+Another popular social media platform is Facebook.
+In the case of Malta 92.3\% of the population ~\citep{napoleoncat} is an active user of the platform.
+The possibility of using Facebook as a data source was explored where Covid-19 related influencers, social leaders and local media pages' posts would be collected as well as their audience user engagement, .i.e comments and shares.
+However the \ac{API} was found to not be as accessible or usable as the Twitter \ac{API}.
 Due to its global reach and usable \ac{API} it was decided that Twitter would be the social media platform from which public opinionated data will be collected.
 
 \subsection{Newspaper Article Data Collection}
 \index{Data Collection!Newspaper Article Data Collection}
 
-\blindtext
+Unlike social media platforms the more traditional newspapers, sometimes referred to as the fourth estate, are decentralised and not limited to one platform.
+In fact many modern newspapers utilize social media to share and advertise on.
+During the research done in this \ac{IAPT} it was found that most published works that use an article headline dataset, have this dataset collected manually such as in \citet{newspaper_headlines}.
+However a number of online \ac{API}s where found and tested with the intention of collecting a dataset spanning 6 months.
+These \ac{API}s were \citet{newsapi} and \citet{newscatcher}, notwithstanding their topic and country search functionality, accessing articles past one month was a paid feature.
+So it was decided to not use these \ac{API}s due to budgeting reasons.
+It was then decided that the article heading dataset would be collected and validated manually.
+
 \index{Data Collection|)}
 
 \section{Data Processing}
