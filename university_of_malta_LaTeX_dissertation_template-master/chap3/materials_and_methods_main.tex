@@ -1,7 +1,5 @@
 \chapter{Materials \& Methods}
 
-%\textbf{This section should include a recipe of what you did (explain what you have done so if someone wants to reproduce the experiment, they can).  A flow chart is typically helpful.  Also, make sure to define all software that you used including version numbers and OS.  Should also include a description of statistical methods used (if any).\footnote{For more information see: \url{http://rc.rcjournal.com/content/49/10/1229.short}}}
-
 For this \ac{IAPT} a multi-stage approach was used for data collection, analyses and evaluation.
 This approach is described in figure~\ref{fig:flowchart} as a flowchart.
 
@@ -10,13 +8,6 @@ This approach is described in figure~\ref{fig:flowchart} as a flowchart.
 \caption[Method Flowchart]{Flowchart of the Method of Experiment\index{Method Flowchart}}
 \label{fig:flowchart}
 \end{figure}
-
-
-% Maybe not for motivation
-%To focus the analyses on European countries and citizens tweets where collected in 6 languages: English, Spanish, French, German, Italian and Dutch.
-%The data was collected over a range of 30 dates spanning 6 months from December 2020 till May 2021.
-%To diversify the data collected from Twitter 900 articles where also collected that where written about the Covid-19 pandemic.
-%Articles where collected for 6 countries: United Kingdom, Spain, France, Germany, Italy, Netherlands, and over the same date range as the Twitter dataset.
 
 \section{Data Collection}
 
@@ -27,8 +18,8 @@ The dataset contains daily folders representing each each day from the 22nd of M
 Instead all of this available data for every month from December 2020 till May 2021, 5 dates, the 1st, 7th, 14th, 21st, 28th where chosen and the clean dataset file was used.
 It was decided that 1000 tweets from 6 languages would suffice to form the Twitter dataset.
 The 6 languages, English, Spanish, French, German, Italian and Dutch are the European languages with the most presence in the Panacea Lab dataset.
-An important point to consider when using the Panacea Lab dataset is that only the Tweet ID is available.
-However this ID can be easily used to download and collect the Tweet text and other Tweet features.
+An important point to consider when using the Panacea Lab dataset is that only the tweet ID is available.
+However this ID can be easily used to download and collect the tweet text and other tweet features.
 For this \ac{IAPT} the Python library, Tweepy a Python wrapper for the Twitter \ac{API} was used ~\citep{roesslein2020tweepy}.
 The use of the Twitter \ac{API} requires the signing-up to the service with Twitter, where after approval \ac{API} are shared.
 The free version comes with limitations such as a limit of 300 lookups/ 15 minutes, however a limit on status retrieval through the ID does not exist.
@@ -36,7 +27,7 @@ Hence for this part of the data collection no limitations were imposed by the Tw
 In total 180,000 tweets where collected.
 
 A smaller dataset was also collected following the same method as described above.
-This smaller dataset features a 1000 Tweets from 3 dates, the 1st of January, February and March and 4 languages, English, Spanish, French, German.
+This smaller dataset features a 1000 tweets from 3 dates, the 1st of January, February and March and 4 languages, English, Spanish, French, German.
 This dataset was used to test the effect of pre-processing the tweets before passing them to a \ac{VADER} model.
 In total 12,000 tweets where collected.
 
@@ -44,15 +35,49 @@ In total 12,000 tweets where collected.
 
 As the focus of this \ac{API} was explained to be more directed towards using social media data, it was decided that the article dataset would be much smaller in scale.
 Using the Google search engine a query was done for every day a file was taken from the Panacea Lab dataset.
-The query was of the format: \textquote{{Country} Covid* before:{Date in YYYY-MM-DD Format} After:{Day before Date in YYYY-MM-DD Format}}
+The query was of the format: \\\textquote{{Country} Covid* before:{Date in YYYY-MM-DD Format} After:{Day before Date in YYYY-MM-DD Format}}\\
 5 relevant articles where collected for each day and stored in a number of csv files.
 In total 900 articles where collected.
 
 \section{Data Processing}
-asd
+
+The tweet data collected is unfiltered and contain a number of useless features such as links, stop words and whitespace.
+In the first part of this \ac{IAPT} the results of pre-processed tweets and 'naked' tweets are used to create a final pre-process function.
+In the final version tweets go through the following process:
+
+\begin{itemize}
+    \item HTML special entities (e.g.\ \&amp;) are removed.
+    \item Tickers are removed.
+    \item Hyperlinks are removed.
+    \item Punctuation is removed.
+    \item "'s", "'t", "'ve" are split with a space.
+    \item Words with 2 or fewer letters are removed.
+    \item Whitespace is removed.
+    \item Stop words are removed.
+\end{itemize}
+
+\noindent The stop word list for the various languages where taken from the \ac{NLTK} ~\citep{bird2009natural} library.
+Article headings in the article dataset do not go through this pre-processing step.
+
+For translation, non-English pre-processed tweet text was passed sent to the Google Cloud Translation \ac{API}.
+The total cost of using the translation \ac{API} came to €60.
+Article headings where not translated as they where collected only in English.
 
 \section{Sentiment Analyses}
-asd
+
+The \ac{NLTK} ~\citep{bird2009natural} library was employed to implement a \ac{VADER} ~\citep{Hutto_Gilbert_2014} model.
+Each tweet and article heading was used as an input and the compound \ac{SA} score was kept.
+The mean compound score of each day was stored in a file, while each score was classifies as either:
+
+\begin{itemize}
+    \item very positive (score >= 0.75)
+    \item positive (0.25 <= score < 0.75)
+    \item neutral (-0.25 <= score < 0.25)
+    \item negative (-0.75 <= score < 0.25)
+    \item very negative (score < -0.75)
+\end{itemize}
 
 \section{Visualization}
-asd
+
+The \ca{SA} scores where visualized via the use of Time Series plots.
+The focus of these visualizations was aimed at the results stemming from the Twitter dataset.
