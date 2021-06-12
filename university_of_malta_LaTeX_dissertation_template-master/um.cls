@@ -185,7 +185,7 @@
     {\large University of Malta} \\
     \vfill
     {\bfseries \@degreeDate}\\[\baselineskip]
-	\parbox[t]{0.80\linewidth}{\footnotesize\textit{A \@doctype\ submitted in partial fulfilment of the requirements for the degree of \@degreeName}.}    
+	\parbox[t]{0.80\linewidth}{\footnotesize\textit{An \@doctype\ submitted in partial fulfilment of the requirements for the degree of \@degreeName}.}
 }
 \thispagestyle{empty}
 \if@openright\cleardoublepage\else\clearpage\fi
