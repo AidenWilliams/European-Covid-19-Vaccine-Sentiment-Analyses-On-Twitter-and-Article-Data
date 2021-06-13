@@ -10,12 +10,12 @@ To test that the distribution and collection was being done correctly, figures~\
 \begin{figure}[!htb]
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{2021-00-01 Filtered Language Distribution.png}
-  \caption{ }
+  \caption[Pre-Process Filtered Language Distribution]{ }
   \label{fig:preprocessdist}
 \endminipage\hfill
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{2021-01-01 Filtered Language Distribution - Final.png}
-  \caption{ }
+  \caption[Final Filtered Language Distribution]{ }
   \label{fig:finaldist}
 \endminipage
 \end{figure}
@@ -24,27 +24,27 @@ To test that the distribution and collection was being done correctly, figures~\
 \section{Pre-Processing Effect}
 
 The compound sentiment scores returned from the \ac{VADER} model was averaged and plotted for the 3 dates used in the experiment.
-The 4 graphs produced, figures ~\ref{fig:EnglishPre},~\ref{fig:SpanishPre},~\ref{fig:FrenchPre} and~\ref{fig:GermanPre}, show a time series graph of each language over the 3 days which are 1 month apart.
+The 4 graphs produced, figures~\ref{fig:EnglishPre} to~\ref{fig:GermanPre}, show a time series graph of each language over the 3 days which are 1 month apart.
 The mean scores where also summed and the difference between the pre-processed and non-processed total was of 0.17\%.
 
 \begin{figure}[!htb]
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{English Process VS NotProcessed.png}
-  \caption{ }\label{fig:EnglishPre}
+  \caption[English Process VS NotProcessed]{ }\label{fig:EnglishPre}
 \endminipage\hfill
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{Spanish Process VS NotProcessed.png}
-  \caption{ }\label{fig:SpanishPre}
+  \caption[Spanish Process VS NotProcessed]{ }\label{fig:SpanishPre}
 \endminipage
 \end{figure}
 \begin{figure}[!htb]
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{French Process VS NotProcessed.png}
-  \caption{ }\label{fig:FrenchPre}
+  \caption[French Process VS NotProcessed]{ }\label{fig:FrenchPre}
 \endminipage\hfill
-\minipage{0.5\textwidth}%
+\minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{German Process VS NotProcessed.png}
-  \caption{ }\label{fig:GermanPre}
+  \caption[German Process VS NotProcessed]{ }\label{fig:GermanPre}
 \endminipage
 \end{figure}
 
@@ -53,7 +53,35 @@ However the pre-process function was amended to keep more features like emojis a
 
 \section{Daily Twitter Mean Sentiment}
 
+Just as with figures~\ref{fig:EnglishPre} to~\ref{fig:GermanPre}, time series graphs where plotted for the mean sentiment scores on the larger 180,000 tweet dataset.
+When all the languages are plotted against each other in figure~\ref{fig:globalall} show no clear trend, however some languages are closer to each other than others.
+When these languages are separated in figures~\ref{fig:globalmean} and~\ref{fig:globaleu} the mean of the compound scores can be seen to related more to each other.
 
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{Daily Mean All.png}
+\caption[Daily Mean All]{ }
+\label{fig:globalall}
+\end{figure}
+
+\noindent The effect of translation is very apparent with the reduced information given from the lines plotted from non-English tweets.
+
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{Daily Mean Global.png}
+\caption[Daily Mean Global]{ }
+\label{fig:globalmean}
+\end{figure}
+
+\noindent Although not followed exactly, the shape of the Spanish line corresponds to the peaks and dips of the English line.
+
+\begin{figure}[h!]
+\includegraphics[scale=0.3]{Daily Mean Europe.png}
+\caption[Daily Mean Europe]{ }
+\label{fig:globaleu}
+\end{figure}
+
+\noindent The line plots for these languages where expected to be more closely related however some similarities can be seen.
+On holidays such as 1st January (new years) or 14th February(valentines day) most countries experience a peak in positivity.
+Inversely on the 14th March every country experienced a dip in positivity.
 
 \section{Daily Twitter Sentiment Classification}
 

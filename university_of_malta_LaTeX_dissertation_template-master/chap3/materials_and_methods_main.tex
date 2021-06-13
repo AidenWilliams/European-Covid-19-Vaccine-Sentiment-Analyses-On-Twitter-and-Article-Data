@@ -22,7 +22,7 @@ It was decided that 1000 tweets from 6 languages would suffice to form the Twitt
 The 6 languages, English, Spanish, French, German, Italian and Dutch are the European languages with the most presence in the Panacea Lab dataset.
 An important point to consider when using the Panacea Lab dataset is that only the tweet ID is available.
 However this ID can be easily used to download and collect the tweet text and other tweet features.
-For this \ac{IAPT} the Python library, Tweepy a Python wrapper for the Twitter \ac{API} was used ~\citep{roesslein2020tweepy}.
+For this \ac{IAPT} the Python library, Tweepy a Python wrapper for the Twitter \ac{API} was used~\citep{roesslein2020tweepy}.
 The use of the Twitter \ac{API} requires the signing-up to the service with Twitter, where after approval \ac{API} are shared.
 The free version comes with limitations such as a limit of 300 lookups/ 15 minutes, however a limit on status retrieval through the ID does not exist.
 Hence for this part of the data collection no limitations were imposed by the Twitter \ac{API}.
@@ -58,7 +58,7 @@ In the final version tweets go through the following process:
     \item Stop words are removed.
 \end{itemize}
 
-\noindent The stop word list for the various languages where taken from the \ac{NLTK} ~\citep{bird2009natural} library.
+\noindent The stop word list for the various languages where taken from the \ac{NLTK}~\citep{bird2009natural} library.
 Article headings in the article dataset do not go through this pre-processing step.
 
 For translation, non-English pre-processed tweet text was passed sent to the Google Cloud Translation \ac{API}.
@@ -67,7 +67,7 @@ Article headings where not translated as they where collected only in English.
 
 \section{Sentiment Analyses}
 
-The \ac{NLTK} ~\citep{bird2009natural} library was employed to implement a \ac{VADER} ~\citep{Hutto_Gilbert_2014} model.
+The \ac{NLTK}~\citep{bird2009natural} library was employed to implement a \ac{VADER}~\citep{Hutto_Gilbert_2014} model.
 Each tweet and article heading was used as an input and the compound \ac{SA} score was kept.
 The mean compound score of each day was stored in a file, while each score was classifies as either:
 
