@@ -63,7 +63,7 @@
 
 % You should have an images directory in every chapX subdir
 % NOTE:  Trailing / for subdirs is required.
-\graphicspath{{./images/}{./chap1/images/}{./chap2/images/}{./chap3/images/}{./chap4/images/}}     % Paths where to look for images, if defined "images" must always be there as it holds the images in-use by the template.
+\graphicspath{{./images/}{./chap1/images/}{./chap2/images/}{./chap3/images/}{./chap4/images/}{./appA/}}     % Paths where to look for images, if defined "images" must always be there as it holds the images in-use by the template.
 
 \makeindex
 
@@ -86,11 +86,11 @@
 %    \input{frontmatter/originality}
 %    \input{frontmatter/dedication}        % include a dedication.tex file
 %    \input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
-    \input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
+%    \input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
     \tableofcontents*\if@openright\cleardoublepage\else\clearpage\fi
     \listoffigures*\if@openright\cleardoublepage\else\clearpage\fi
-    \listoftables*\if@openright\cleardoublepage\else\clearpage\fi
-    \input{frontmatter/abbreviations}\if@openright\cleardoublepage\else\clearpage\fi
+    \listoftables %*\if@openright\cleardoublepage\else\clearpage\fi
+    \input{frontmatter/abbreviations} % \if@openright\cleardoublepage\else\clearpage\fi
 
 %% Note: always use \input as you cannot nest \includes (amongst other things)
 \pagestyle{umpage}
@@ -99,11 +99,11 @@
     \input{chap1/introduction_main} 
     \input{chap2/background_and_lit_overview_main}
     \input{chap3/materials_and_methods_main}
-    \input{chap4/results_and_discussion_main}
+%    \input{chap4/results_and_discussion_main}
     \input{chap5/evaluation_main}
     \input{chap6/conclusions_main}
-%    \appendix
-%        \input{appA/appendix_a_main}     % these are just test names as I didn't know what you'd want
+    \appendix
+        \input{appA/appendix_a_main}     % these are just test names as I didn't know what you'd want
 %        \input{appB/appendix_b_main}
 %        \input{appC/appendix_c_main}
 

@@ -6,9 +6,10 @@ For this \ac{IAPT} a multi-stage approach was used for data collection, analyses
 This approach is described in figure~\ref{fig:flowchart} as a flowchart.
 
 \begin{figure}[h!]
-\includegraphics[scale=0.2]{IAPT Flowchart}
-\caption[Method Flowchart]{Flowchart of the Method of Experiment\index{Method Flowchart}}
-\label{fig:flowchart}
+    \centering
+    \includegraphics[scale=0.2]{IAPT Flowchart}
+    \caption[Method Flowchart]{Flowchart of the Method of Experiment\index{Method Flowchart}}
+    \label{fig:flowchart}
 \end{figure}
 
 \section{Data Collection}
@@ -27,11 +28,25 @@ The use of the Twitter \ac{API} requires the signing-up to the service with Twit
 The free version comes with limitations such as a limit of 300 lookups/ 15 minutes, however a limit on status retrieval through the ID does not exist.
 Hence for this part of the data collection no limitations were imposed by the Twitter \ac{API}.
 In total 180,000 tweets where collected.
+Figure~\ref{fig:fulldatda} shows the distribution of the languages within a day from the full Twitter dataset.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.25]{Full dataset distribution.png}
+    \caption{The language distribution in the Full Twitter Dataset}\label{fig:fulldatda}
+\end{figure}
 
 A smaller dataset was also collected following the same method as described above.
 This smaller dataset features a 1000 tweets from 3 dates, the 1st of January, February and March and 4 languages, English, Spanish, French, German.
 This dataset was used to test the effect of pre-processing the tweets before passing them to a \ac{VADER} model.
 In total 12,000 tweets where collected.
+Figure~\ref{fig:experiment} shows the distribution of the languages within a day from the experimental Twitter dataset.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.25]{experiment distribution.png}
+    \caption{The language distribution in the Experiment Twitter Dataset}\label{fig:experiment}
+\end{figure}
 
 \subsection{Article Dataset}
 
@@ -84,4 +99,33 @@ The mean compound score of each day was stored in a file, while each score was c
 The \ca{SA} scores where visualized with the use of the Multiplex~\citep{Mamo2021} library and the matplotlib library~\citep{Hunter:2007} via the use of Time Series plots and word clouds for each month.
 A word cloud visualization was also generated for every language (translated to English) for every month.
 The focus of these visualizations was aimed at the results stemming from the Twitter dataset.
-Discussion on the visualizations produced are found in the following chapter, Results \& Discussion.
+An example of a time series plot generated can be seen in figure~\ref{fig:globalmean} while an example of a French word cloud for the month of May can be seen in ~\ref{fig:frmay}.
+The complete collection of visualizations can be found in appendix A\@.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.24]{Daily Mean Global.png}
+    \caption[Daily Mean Global]{ }
+    \label{fig:globalmean}
+\end{figure}
+
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[scale=0.24]{Daily Mean Article VS Twitter UK.png}
+%    \caption[Daily Mean Article VS Twitter]{ }
+%    \label{fig:artcilevstwitter}
+%\end{figure}
+%
+%
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[scale=0.24]{Final English Annotated Distribution.png}
+%    \caption[English Annotated Sentiment Distribution]{ }
+%    \label{fig:English}
+%\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.66]{May fr word cloud.png}
+    \caption[French Word cloud for May]{May}\label{fig:frmay}
+\end{figure}
